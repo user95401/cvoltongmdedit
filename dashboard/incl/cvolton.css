@@ -1,0 +1,133 @@
+<style type="text/css">
+.menubar {
+	background-color: #1e2124!important;
+	color: #d6ddde!important;
+	box-shadow: 0px 0px 4px 1px black;
+}
+.offcanvas-backdrop {
+    opacity: 0.5!important;
+}
+.content {
+	background-color: #36393e!important;
+	color: #a7a8aa!important;
+}
+html,body{
+	height:100%!important;
+	background-color: #36393e!important
+}
+.fill {
+	flex:1;
+}
+.btn-primary,
+.btn-primary:visited {
+	background-color: #212529!important;
+	border-color: #212529!important;
+}
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
+	background-color: #47494e!important;
+	border-color: #47494e!important;
+}
+.buffer {
+	padding: 20px!important;
+}
+.container-box {
+	height: 100%!important;
+	display: flex!important;
+	justify-content: center!important;
+	align-items: center!important;
+}
+.login-input {
+	width: 250px!important;
+}
+.black-dropdown {
+	background-color: #e7e7e7!important;
+}
+
+
+/* user666 was here :> */
+.dropdown-toggle {user-select: none; cursor: pointer;}
+
+.blur-hover {filter: blur(0.6vh);} .blur-hover:hover {animation: blurOut 1s ease-out 1; filter: blur(0vh);}
+
+.container, .container-fluid {
+-webkit-animation-name: slideInDown; animation-name: slideInDown;
+-webkit-animation-duration: 0.5s; animation-duration: 0.5s;
+-webkit-animation-timing-function: ease; animation-timing-function: ease;
+-webkit-animation-fill-mode: both; animation-fill-mode: both;
+}
+
+@-webkit-keyframes slideInDown {
+  0% {opacity: 0;-webkit-transform: translateY(-100%);transform: translateY(-100%);visibility: visible;}
+  100% {opacity: 1;-webkit-transform: translateY(0);transform: translateY(0);}
+}
+@keyframes slideInDown {
+  0% {opacity: 0;-webkit-transform: translateY(-100%);transform: translateY(-100%);visibility: visible;}
+  100% {opacity: 1;-webkit-transform: translateY(0);transform: translateY(0);}
+}
+@keyframes blurOut {
+  0% { filter: blur(0.6vh); }
+  50% { filter: blur(0.6vh); }
+  100% { filter: blur(0vh); }
+}
+
+.dropdown-menu-navbar {
+-webkit-animation: scale-up-top 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+animation: scale-up-top 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+
+@-webkit-keyframes scale-up-top {
+0% {-webkit-transform: scale(0.5);transform: scale(0.5); -webkit-transform-origin: 50% 0%;transform-origin: 50% 0%;}
+100% {-webkit-transform: scale(1);transform: scale(1);-webkit-transform-origin: 50% 0%;transform-origin: 50% 0%;}
+}
+@keyframes scale-up-top {
+0% {-webkit-transform: scale(0.5);transform: scale(0.5);-webkit-transform-origin: 50% 0%;transform-origin: 50% 0%;}
+100% {-webkit-transform: scale(1);transform: scale(1);-webkit-transform-origin: 50% 0%;transform-origin: 50% 0%;}
+}
+.dropdown-menu-offcanvas {
+-webkit-animation: slideInRight 0.3s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+animation: slideInRight 0.3s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+
+@-webkit-keyframes slideInRight {
+    0% {opacity: 0;-webkit-transform: translateX(100%);transform: translateX(100%);visibility: visible;}
+  100% {opacity: 1;-webkit-transform: translateX(0);transform: translateX(0);}
+}
+@keyframes slideInRight {
+    0% {opacity: 0;-webkit-transform: translateX(100%);transform: translateX(100%);visibility: visible;}
+  100% {opacity: 1;-webkit-transform: translateX(0);transform: translateX(0);}
+}
+
+
+.animitslideInLeft {
+-webkit-animation: slideInLeft 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+animation: slideInLeft 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+
+@-webkit-keyframes slideInLeft {
+    0% {opacity: 0;-webkit-transform: translateX(-100%);transform: translateX(-100%);visibility: visible;}
+  100% {opacity: 1;-webkit-transform: translateX(0);transform: translateX(0);}
+}
+@keyframes slideInLeft {
+    0% {opacity: 0;-webkit-transform: translateX(-100%);transform: translateX(-100%);visibility: visible;}
+  100% {opacity: 1;-webkit-transform: translateX(0);transform: translateX(0);}
+}
+
+
+nav {z-index:10;}
+.darkBox {
+background-color: #212529; padding: 2vh; color: #fff;
+}
+.btn-link {padding:0px!important}
+.a {
+    color: #007bff!important;
+    cursor: pointer!important;
+    text-decoration: none!important;
+}
+.a:hover {
+    color: #0052dc!important;
+    cursor: pointer!important;
+    text-decoration: underline!important;
+}
+</style>
