@@ -28,6 +28,8 @@ Supported version of Geometry Dash: 1.0 - 2.11. But I check only 2.1/
 
 Required version of PHP: 7+ (tested on 7.3.27 (native))
 
+<h3 style="color: indianred;">THIS IS THE FIRST RELEASE, THERE MAY BE BUGS! report them pls)</h3>
+
 ### Setup
 1) Upload the files on a webserver
 2) Import database.sql into a MySQL/MariaDB database
