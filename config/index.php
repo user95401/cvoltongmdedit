@@ -7,6 +7,7 @@
 <?php
 include 'main.php';
 session_start();
+if ($_SESSION["admenusername"] !== $admenusername or $_SESSION["admenpassword"] !== $admenpassword) {header('Location: configgen/login.php');}
 if ($_SESSION["admenusername"] == $admenusername or $_SESSION["admenpassword"] == $admenpassword) {
     echo '<div class="container-fluid">
         <div class="card position-absolute top-50 start-50 translate-middle" style="width: 20rem;" >
