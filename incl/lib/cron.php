@@ -1,6 +1,10 @@
 <?php
+$url = $_SERVER['REQUEST_URI'];
 
-if($autoban == "true"){
+$random = rand(1, 10);
+if($random <= 3){
+    
+if($autoban == "true" and strpos($url ,'getGJScores') !== FALSE or strpos($url ,'getGJUserInfo') !== FALSE or strpos($url ,'users') !== FALSE or strpos($url ,'user') !== FALSE){
 $query = $db->prepare("SELECT COUNT(starDemon) FROM levels WHERE starDemon = 1");
 $query->execute();
 $ABdemons = $ABdemons + $query->fetchColumn();
@@ -80,7 +84,7 @@ $query = $db->prepare("UPDATE users SET isBanned = 1 WHERE stars > $ABstars OR c
 $query->execute();
 }
 
-if($fixCPs == "true"){
+if($fixCPs == "true" and strpos($url ,'getGJScores') !== FALSE or strpos($url ,'getGJUserInfo') !== FALSE or strpos($url ,'users') !== FALSE or strpos($url ,'user') !== FALSE){
 $query = $db->prepare("update users 
 set creatorPoints = (
 	 select COUNT(*)
@@ -110,7 +114,7 @@ set creatorPoints = (
 $query->execute();
 }
 
-if($fixnames == "true"){
+if($fixnames == "true" and strpos($url ,'getGJScores') !== FALSE or strpos($url ,'getGJUserInfo') !== FALSE or strpos($url ,'users') !== FALSE or strpos($url ,'user') !== FALSE){
 $query = $db->prepare("UPDATE users
 	INNER JOIN accounts ON accounts.accountID = users.extID
 	SET users.userName = accounts.userName
@@ -158,7 +162,7 @@ foreach($result_songsCount as &$songData_songsCount){
 
 
 
-if($friendsLeaderboardCron == "true"){
+if($friendsLeaderboardCron == "true" and $_POST["type"] == 'friends'){
     
 $query_friendsLeaderboardCron = $db->prepare("SELECT accountID, userName FROM accounts");
 $query_friendsLeaderboardCron->execute();
@@ -175,5 +179,7 @@ foreach($result_friendsLeaderboardCron as $account_friendsLeaderboardCron){
 		$query4_friendsLeaderboardCron->execute([':friendscount' => $friendscount_friendsLeaderboardCron, ':me' => $me_friendsLeaderboardCron]);
 	}
 }
+}
+
 }
 ?>
