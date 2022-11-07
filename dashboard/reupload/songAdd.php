@@ -20,8 +20,7 @@ if($songAdd !== 'true')
 
 if(!empty($_POST["songlink"])){
 $song = str_replace("www.dropbox.com","dl.dropboxusercontent.com",$_POST["songlink"]);
-$Headers = @get_headers($song);
-if(preg_match("|200|", $Headers[0])) {
+if(filter_var($song, FILTER_VALIDATE_URL) and !preg_match("|soundcloud|", $song) and !preg_match("|youtube|", $song) and !preg_match("|drive.google|", $song)) {
 		$song = str_replace("?dl=0","",$song);
 		$song = str_replace("?dl=1","",$song);
 		$song = trim($song);
@@ -53,8 +52,6 @@ if(preg_match("|200|", $Headers[0])) {
 		$name = str_replace("_(mp3zvon.com", "", $name);
 		$name = str_replace("_(mp3IQ.net", "", $name);
 		$name = str_replace("-www_muzonov_net", "", $name);
-		$name = str_replace("dfsfsdfsdf", "", $name);
-		$name = str_replace("dfsfsdfsdf", "", $name);
 		$name = str_replace("dfsfsdfsdf", "", $name);
 		}
 		$name = urldecode($name);
@@ -139,4 +136,28 @@ if($songAdd_customAuthor == 'true'){$Song_author = '
 					<button type="submit" class="btn btn-primary btn-block">'.$dl->getLocalizedString("addBTN").'</button>
 				</form>',"reupload");
 }
+echo '<button style="border-radius: 0.5rem 0 0 0;position: fixed" type="button" class="btn btn-primary btn-lg bottom-0 end-0" data-bs-toggle="modal" data-bs-target="#info">
+<i class="fa fa-info"></i>
+</button>';
 ?>
+<div class="modal fade" id="info" tabindex="-1" aria-labelledby="info" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog" style="">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4><?php echo $dl->getLocalizedString("info") ?></h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <?php echo $dl->getLocalizedString("songAddinfo") ?><br>
+        <h6><?php echo $dl->getLocalizedString("songAddinfoRecomendedSites") ?></h6>
+        <a href="http://web.ligaudio.ru">web.ligaudio.ru</a> |
+        <a href="http://musmore.com/">musmore.com</a> |
+        <a href="http://muzonov.net/">muzonov.net</a> |
+        <a href="http://audiohunter.ru/">audiohunter.ru</a> |
+        <a href="http://gidmp3.ru/">gidmp3.ru</a> |
+        <a href="http://www.hotplayer.ru/">www.hotplayer.ru</a> |
+        <a href="http://mp3zvon.com/">mp3zvon.com</a>
+      </div>
+    </div>
+  </div>
+</div>
