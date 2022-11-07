@@ -454,4 +454,12 @@
 		$string["optimizedP"] = "%s problems have been optimized.";
 		$string["optimizedS"] = "One problem has been optimized.";
 		$string["noOptimized"] = "Nothing has been optimized.";
+/*
+	info
+*/
+		$string["info"] = "Info";
+		$string["songAddinfo"] = "This is an id substitution system or something like that. 
+Data about the re-uploaded song (author, name, etc.) is added to the database.
+When receiving music in the game, the data that NG gives (or the Robotop server?) they are replaced by those in the database, the file is downloaded from the specified link.";
+		$string["songAddinfoRecomendedSites"] = "Recommended/tested sites:";
 ?>
