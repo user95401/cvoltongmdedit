@@ -9,42 +9,69 @@
 include '../main.php';
 session_start();
 if ($_SESSION["admenusername"] !== $admenusername or $_SESSION["admenpassword"] !== $admenpassword) {header('Location: login.php');}
-if (!empty($_POST["host"]) and !empty($_POST["user"]) and !empty($_POST["password"]) and !empty($_POST["database"]) and !empty($_POST["port"])) {
+    if (!empty($_POST["generate"])) {
+	// lets to test db connect data
     $mysqli = new mysqli($_POST["host"], $_POST["user"], $_POST["password"], $_POST["database"], $_POST["port"]);
     if (mysqli_connect_error()) {
-        $connection_fail_message = "Connection is failed!";
-        echo '<div class="alert alert-dismissable alert-danger position-absolute bottom-0 start-0 alert-dismissible fade show" role="alert">
-				<h4>'.$connection_fail_message.'</h4> Fail message: <strong>'.mysqli_connect_error().'</strong>
+		/* he must see this!11 */
+        $dbconalert = '<div class="alert alert-dismissible alert-danger alert-dismissible fade show" role="alert" id="alert">
+				<h4>Connection is failed!</h4> Fail message: <strong>'.mysqli_connect_error().'</strong>
 				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
-		echo '<div class="container-fluid">
-    <div class="card position-absolute top-50 start-50 translate-middle" style="width: 30rem;" >
-    <div class="card-body">
-    <h5 class="card-title">MySQL sever connection</h5>
-    <form action="" method="post" autocomplete="on">
-    <div class="input-group mb-3">
-    <label class="input-group-text">Host: </label>
-    <input required class="form-control" type="text" name="host" value="'.$_POST["host"].'" autocomplete="host">
-    </div>
-    <div class="input-group mb-3"><label class="input-group-text">User: </label>
-    <input required class="form-control" type="text" name="user" value="'.$_POST["user"].'" autocomplete="user">
-    </div>
-    <div class="input-group mb-3"><label class="input-group-text">Password: </label>
-    <input required class="form-control" type="password" name="password" value="'.$_POST["password"].'" autocomplete="password">
-    </div>
-    <div class="input-group mb-3"><label class="input-group-text">Database name: </label>
-    <input required class="form-control" type="text" name="database" value="'.$_POST["database"].'" autocomplete="database">
-    </div>
-    <div class="input-group mb-3"><label class="input-group-text">Port: </label>
-    <input required class="form-control" type="number" name="port" value="'.$_POST["port"].'" autocomplete="port">
-    </div>
-    <input value="TEST" type="submit" class="form-control btn btn-primary">
-    </form>
-    </div class="card-body">
-    </div class="card" style="width: 30rem;">
-    </div class="container-fluid">';
-        exit();
-    }
-    else{
+    } //db connect data is good! ok i do it
+	else{
+    $mainphp = '<?php
+//database connection
+$dbservername = "'.$_POST["host"].'"; //localhost?
+$dbport = '.$_POST["port"].';
+$dbusername = "'.$_POST["user"].'";
+$dbpassword = "'.$_POST["password"].'";
+$dbname = "'.$_POST["database"].'";
+
+$GDPSname = "'.$_POST["GDPSname"].'"; //project title
+$helpLink = "'.$_POST["helpLink"].'"; //help page, group, discord server and other
+$projectIcon = "'.$_POST["projectIcon"].'"; //project icon
+
+$levelToGD = "'.$_POST["levelToGD"].'"; //set false if you dont allow users upload levels to another servers
+$levelReupload = "'.$_POST["levelReupload"].'"; //set false if you dont allow users upload levels FROM another servers
+$songAdd = "'.$_POST["songAdd"].'"; //set false if you do not allow non-NG songs system
+$songAdd_customName = "'.$_POST["songAdd_customName"].'"; //set false if you do not allow set a custom song name for non-NG songs system
+$songAdd_customAuthor = "'.$_POST["songAdd_customAuthor"].'"; //set false if you do not allow set a custom author name for non-NG songs system
+$dashboardImprovedChart = "'.$_POST["dashboardImprovedChart"].'"; //gooodLuck
+$MultipleAccountsWithSameIP = "'.$_POST["MultipleAccountsWithSameIP"].'"; //set false if you do not allow register accounts with the same IP
+$deleteRatedLevels = "'.$_POST["deleteRatedLevels"].'"; //set true to allow level owners to delete them anyway
+$autoWeeklyAndDaily = "'.$_POST["autoWeeklyAndDaily"].'"; //randomly automatically adds Weekly and Daily levels when the moderator rate it
+$autoWeeklyAndDailyChance = '.$_POST["autoWeeklyAndDailyChance"].'; // ^
+$redirectTopArtist = "'.$_POST["redirectTopArtist"].'"; //Indicates wether the server should ask the main GD servers for the top artists list or not.
+
+//cron
+$ABstars = '.$_POST["ABstars"].'; //default value (for autoban counting)
+$ABcoins = '.$_POST["ABcoins"].'; //default value (for autoban counting)
+$ABpc = '.$_POST["ABpc"].'; //user coins default value (for autoban counting)
+$ABdemons = '.$_POST["ABdemons"].'; //default values (for autoban counting)
+$autoban = "'.$_POST["autoban"].'";
+$fixCPs = "'.$_POST["fixCPs"].'";
+$fixnames = "'.$_POST["fixnames"].'";
+$friendsLeaderboardCron = "'.$_POST["friendsLeaderboardCron"].'";
+$deleteUnnecessary = "'.$_POST["deleteUnnecessary"].'"; //delete worong songs and users / Fix levels with invalid passwords
+
+//DANGER ZONE! I DONT RECOMMEND TOUCHING THIS
+$preventAddingNewData = "'.$_POST["preventAddingNewData"].'"; //set true to prevent adding new data (this will block much of the features, such as: unloading levels, comments, posts, updating user stats, adding a song, reloading levels, etc.)
+$maintenanceMode = "'.$_POST["maintenanceMode"].'"; //set false to to prevent contact with the database
+
+//adminLogin
+$admenusername = "'.$_POST["admenusername"].'";
+$admenpassword = "'.$_POST["admenpassword"].'";';
+    file_put_contents("../main.php", $mainphp);
+    $newcfginf = '
+    <h2>New config generated:</h2>
+    <div id="codebox">
+    <pre><code data-language="html">
+    <p>'.str_replace("<?php", "", file_get_contents("../main.php")).'</p>
+    </code></pre>
+    </div id="codebox">
+    ';
+	} //end of generate
+ } //end of if non empty POST["generate"]
         echo '
         <div class="container-fluid">
         <form action="" method="post" autocomplete="on">
@@ -55,20 +82,21 @@ if (!empty($_POST["host"]) and !empty($_POST["user"]) and !empty($_POST["passwor
 					<h3 class="text-center">Database connection:</h3>
 					<div class="input-group mb-3">
                     <label class="input-group-text">Host: </label>
-                    <input required class="form-control" type="text" name="host" value="'.$_POST["host"].'" autocomplete="host">
+                    <input required class="form-control" type="text" name="host" value="'.$dbservername.'" autocomplete="host">
                     </div>
                     <div class="input-group mb-3"><label class="input-group-text">User: </label>
-                    <input required class="form-control" type="text" name="user" value="'.$_POST["user"].'" autocomplete="user">
+                    <input required class="form-control" type="text" name="user" value="'.$dbusername.'" autocomplete="user">
                     </div>
                     <div class="input-group mb-3"><label class="input-group-text">Password: </label>
-                    <input required class="form-control" type="password" name="password" value="'.$_POST["password"].'" autocomplete="password">
+                    <input required class="form-control" type="password" name="password" value="'.$dbpassword.'" autocomplete="password">
                     </div>
                     <div class="input-group mb-3"><label class="input-group-text">Database name: </label>
-                    <input required class="form-control" type="text" name="database" value="'.$_POST["database"].'" autocomplete="database">
+                    <input required class="form-control" type="text" name="database" value="'.$dbname.'" autocomplete="database">
                     </div>
                     <div class="input-group mb-3"><label class="input-group-text">Port: </label>
-                    <input required class="form-control" type="number" name="port" value="'.$_POST["port"].'" autocomplete="port">
+                    <input required class="form-control" type="number" name="port" value="'.$dbport.'" autocomplete="port">
                     </div>
+					'.$dbconalert.'
 					<h3 class="text-center text-danger">DANGER ZONE:</h3>
 					<div class="input-group mb-3" data-bs-toggle="tooltip" data-bs-title="set true to prevent adding new data (this will block much of the features, such as: unloading levels, comments, posts, updating user stats, adding a song, reloading levels, etc.)" data-bs-placement="bottom">
 					<label class="input-group-text is-invalid">preventAddingNewData: </label>
@@ -200,91 +228,8 @@ if (!empty($_POST["host"]) and !empty($_POST["user"]) and !empty($_POST["passwor
         </div>
 	</div>
 	</form>
+	'.$newcfginf.'
 	</div class="container-fluid">';
-    if (!empty($_POST["generate"])) {
-    $mainphp = '<?php
-//database connection
-$dbservername = "'.$_POST["host"].'"; //localhost?
-$dbport = '.$_POST["port"].';
-$dbusername = "'.$_POST["user"].'";
-$dbpassword = "'.$_POST["password"].'";
-$dbname = "'.$_POST["database"].'";
-
-$GDPSname = "'.$_POST["GDPSname"].'"; //project title
-$helpLink = "'.$_POST["helpLink"].'"; //help page, group, discord server and other
-$projectIcon = "'.$_POST["projectIcon"].'"; //project icon
-
-$levelToGD = "'.$_POST["levelToGD"].'"; //set false if you dont allow users upload levels to another servers
-$levelReupload = "'.$_POST["levelReupload"].'"; //set false if you dont allow users upload levels FROM another servers
-$songAdd = "'.$_POST["songAdd"].'"; //set false if you do not allow non-NG songs system
-$songAdd_customName = "'.$_POST["songAdd_customName"].'"; //set false if you do not allow set a custom song name for non-NG songs system
-$songAdd_customAuthor = "'.$_POST["songAdd_customAuthor"].'"; //set false if you do not allow set a custom author name for non-NG songs system
-$dashboardImprovedChart = "'.$_POST["dashboardImprovedChart"].'"; //gooodLuck
-$MultipleAccountsWithSameIP = "'.$_POST["MultipleAccountsWithSameIP"].'"; //set false if you do not allow register accounts with the same IP
-$deleteRatedLevels = "'.$_POST["deleteRatedLevels"].'"; //set true to allow level owners to delete them anyway
-$autoWeeklyAndDaily = "'.$_POST["autoWeeklyAndDaily"].'"; //randomly automatically adds Weekly and Daily levels when the moderator rate it
-$autoWeeklyAndDailyChance = '.$_POST["autoWeeklyAndDailyChance"].'; // ^
-$redirectTopArtist = "'.$_POST["redirectTopArtist"].'"; //Indicates wether the server should ask the main GD servers for the top artists list or not.
-
-//cron
-$ABstars = '.$_POST["ABstars"].'; //default value (for autoban counting)
-$ABcoins = '.$_POST["ABcoins"].'; //default value (for autoban counting)
-$ABpc = '.$_POST["ABpc"].'; //user coins default value (for autoban counting)
-$ABdemons = '.$_POST["ABdemons"].'; //default values (for autoban counting)
-$autoban = "'.$_POST["autoban"].'";
-$fixCPs = "'.$_POST["fixCPs"].'";
-$fixnames = "'.$_POST["fixnames"].'";
-$friendsLeaderboardCron = "'.$_POST["friendsLeaderboardCron"].'";
-$deleteUnnecessary = "'.$_POST["deleteUnnecessary"].'"; //delete worong songs and users / Fix levels with invalid passwords
-
-//DANGER ZONE! I DONT RECOMMEND TOUCHING THIS
-$preventAddingNewData = "'.$_POST["preventAddingNewData"].'"; //set true to prevent adding new data (this will block much of the features, such as: unloading levels, comments, posts, updating user stats, adding a song, reloading levels, etc.)
-$maintenanceMode = "'.$_POST["maintenanceMode"].'"; //set false to to prevent contact with the database
-
-//adminLogin
-$admenusername = "'.$_POST["admenusername"].'";
-$admenpassword = "'.$_POST["admenpassword"].'";';
-    file_put_contents("../main.php", $mainphp);
-    echo '
-    <h2>New config generated:</h2>
-    <span class="text-muted">Reload page to regenerate form values</span>
-    <div id="codebox">
-    <pre><code data-language="html">
-    <p>'.str_replace("<?php", "", file_get_contents("../main.php")).'</p>
-    </code></pre>
-    </div id="codebox">
-    ';}
-    }
-}
-else {
-    echo '<div class="container-fluid">
-    <div class="card position-absolute top-50 start-50 translate-middle" style="width: 30rem;" >
-    <div class="card-body">
-    <h5 class="card-title">MySQL sever connection</h5>
-    <form action="" method="post" autocomplete="on">
-    <div class="input-group mb-3">
-    <label class="input-group-text">Host: </label>
-    <input required class="form-control" type="text" name="host" value="localhost" autocomplete="host">
-    </div>
-    <div class="input-group mb-3"><label class="input-group-text">User: </label>
-    <input required autofocus class="form-control" type="text" name="user" autocomplete="user">
-    </div>
-    <div class="input-group mb-3"><label class="input-group-text">Password: </label>
-    <input required class="form-control" type="password" name="password" autocomplete="password">
-    </div>
-    <div class="input-group mb-3"><label class="input-group-text">Database name: </label>
-    <input required class="form-control" type="text" name="database" autocomplete="database">
-    </div>
-    <div class="input-group mb-3"><label class="input-group-text">Port: </label>
-    <input required class="form-control" type="number" name="port" value="3306" autocomplete="port">
-    </div>
-    <input value="TEST" type="submit" class="form-control btn btn-primary">
-    </form>
-    </div class="card-body">
-    </div class="card" style="width: 30rem;">
-    </div class="container-fluid">';
-        
-}
 ?>
 <br>
 <style>
