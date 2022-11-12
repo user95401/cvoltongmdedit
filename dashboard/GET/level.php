@@ -74,7 +74,7 @@ $songInfo = '<h4>
 	</h4>
 	<audio style="background-color: #f1f3f4;" class="form-control" controls ><source src="'.$song["download"].'" type="audio/mpeg"></audio>
 	<h6>
-	ID: <a href="http://cvoltongmdedit.webq2e.ru/f/dashboard/GET/song.php?songID='.$song["ID"].'">'.$song["ID"].'</a> '.$dl->getLocalizedString("size").': '.$song["size"].'
+	ID: <a href="GET/song.php?songID='.$song["ID"].'">'.$song["ID"].'</a> '.$dl->getLocalizedString("size").': '.$song["size"].'
 	</h6>';
 if($song["ID"] == 0){
     $songName = $gs->getAudioTrack($result["audioTrack"]);
