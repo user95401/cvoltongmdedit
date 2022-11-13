@@ -73,229 +73,6 @@ class dashboardLib{
 		echo '</body>
 		</html>';
 	}
-	//Print login box
-	public function printLoginBox($content){
-		$this->printBox("<h1>Login</h1>".$content);
-	}
-	//Print invalid login box
-	public function printLoginBoxInvalid(){
-		$this->printLoginBox("<p>Invalid username or password. <a href=''>Click here to try again.</a>");
-	}
-	//Print login error
-	public function printLoginBoxError($content){
-		$this->printLoginBox("<p>An error has occured: $content. <a href=''>Click here to try again.</a>");
-	}
-	//Print navbar
-	public function printNavbarOld($active){
-		require_once __DIR__."/../../incl/lib/mainLib.php";
-		include __DIR__."/../../config/main.php";
-		$gs = new mainLib();
-		$modActive = "";
-		$homeActive = "";
-		$cronActive = "";
-		$statsActive = "";
-		$loginActive = "";
-		$browseActive = "";
-		$accountActive = "";
-		$reuploadActive = "";
-		$adminActive = "";
-		
-		$smallscreenAlert = '<script>
-if(screen.availHeight > screen.availWidth){alert("'.$this->getLocalizedString("smallscreenAlert").'")}
-</script>';
-
-		switch($active){
-			case "home":
-				$homeActive = "active";
-				break;
-			case "account":
-				$accountActive = "active";
-				break;
-			case "mod":
-				$modActive = "active";
-				break;
-			case "reupload":
-				$reuploadActive = "active";
-				break;
-			case "stats":
-				$statsActive = "active";
-				echo $smallscreenAlert;
-				break;
-			case "browse":
-				$browseActive = "active";
-				echo $smallscreenAlert;
-				break;
-			case "cron":
-				$cronActive = "active";
-				break;
-			case "admin":
-				$adminActive = "active";
-				break;
-			case "login":
-				$loginActive = "active";
-				break;
-		}
-		echo '<nav class="navbar navbar-expand-lg navbar-dark menubar">
-		         <a class="navbar-brand" href="#">
-                  <img src="'.$projectIcon.'" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
-                  <a href="home.php">Dashboard</a>
-                </a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNavDropdown">
-				<ul class="navbar-nav">
-					<li class="nav-item '.$homeActive.' ">
-						<a class="nav-link" href="home.php">
-							<i class="fa fa-home" aria-hidden="true"></i> '.$this->getLocalizedString("homeNavbar").'
-						</a>
-					</li>';
-		$browse = '<li class="nav-item dropdown '.$browseActive.' ">
-						<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<i class="fa fa-folder-open" aria-hidden="true"></i> '.$this->getLocalizedString("browse").'
-						</a>
-						<div class="dropdown-menu dropdown-menu-navbar" aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" aria-expanded="false" href="stats/users.php">'.$this->getLocalizedString("users").'</a>
-							<a class="dropdown-item" aria-expanded="false" href="stats/levels.php">'.$this->getLocalizedString("levels").'</a>
-							<a class="dropdown-item" aria-expanded="false" href="stats/gauntletTable.php">'.$this->getLocalizedString("gauntletTable").'</a>
-							<a class="dropdown-item" aria-expanded="false" href="stats/packTable.php">'.$this->getLocalizedString("packTable").'</a>
-							<a class="dropdown-item" aria-expanded="false" href="stats/songs.php">'.$this->getLocalizedString("songs").'</a>';
-		if(isset($_GET["accountManagement"])){$AMset = ' show';}
-		if(isset($_SESSION["accountID"]) && $_SESSION["accountID"]){
-			echo '
-					<li class="nav-item dropdown '.$accountActive.' '.$AMset.'">
-						<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<i class="fa fa-user" aria-hidden="true"></i> '.$this->getLocalizedString("accountManagement").'
-						</a>
-						<div class="dropdown-menu dropdown-menu-navbar '.$AMset.'" aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" aria-expanded="false" href="account/linkAcc.php">'.$this->getLocalizedString("linkAccount").'</a>
-							<a class="dropdown-item" aria-expanded="false" href="account/unlisted.php">'.$this->getLocalizedString("unlistedLevels").'</a>
-							<a class="dropdown-item" aria-expanded="false" href="account/changeUsername.php">'.$this->getLocalizedString("changeUsername").'</a>
-							<a class="dropdown-item" aria-expanded="false" href="account/changePassword.php">'.$this->getLocalizedString("changePassword").'</a>
-							<a class="dropdown-item" aria-expanded="false" href="account/settings.php">'.$this->getLocalizedString("account_settings").'</a>
-							<a class="dropdown-item text-danger" aria-expanded="false" href="account/deleteOwnAccount.php">'.$this->getLocalizedString("deleteOwnAccount").'</a>
-						</div>
-					</li>' . $browse . '</div></li>';
-			if($gs->checkPermission($_SESSION["accountID"], "dashboardModTools")){
-				echo '<li class="nav-item dropdown '.$modActive.'">
-						<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<i class="fa fa-wrench" aria-hidden="true"></i> '.$this->getLocalizedString("modTools").'
-						</a>
-						<div class="dropdown-menu dropdown-menu-navbar" aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" aria-expanded="false" href="stats/reports.php">'.$this->getLocalizedString("reports").'</a>
-							<a class="dropdown-item" aria-expanded="false" href="stats/accounts.php">'.$this->getLocalizedString("accounts").'</a>
-							<a class="dropdown-item" aria-expanded="false" href="tools/leaderboardsBan.php">'.$this->getLocalizedString("leaderboardBan").'</a>
-							<a class="dropdown-item" aria-expanded="false" href="tools/leaderboardsUnban.php">'.$this->getLocalizedString("leaderboardUnban").'</a>
-							<a class="dropdown-item" aria-expanded="false" href="tools/mapPackAdd.php">'.$this->getLocalizedString("packManage").'</a>
-							<a class="dropdown-item" aria-expanded="false" href="tools/addQuests.php">'.$this->getLocalizedString("Add quest").'</a>
-							<a class="dropdown-item" aria-expanded="false" href="tools/rate.php">'.$this->getLocalizedString("rate").'</a>
-						</div>
-					</li>';
-				echo '<li class="nav-item dropdown '.$cronActive.'">
-						<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<i class="fa fa-wrench" aria-hidden="true"></i> '.$this->getLocalizedString("cleanup").'
-						</a>
-						<div class="dropdown-menu dropdown-menu-navbar" aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" aria-expanded="false" href="cleanup/deleteUnused.php">'.$this->getLocalizedString("deleteUnused").'</a>
-							<a class="dropdown-item" aria-expanded="false" href="cleanup/optimizeTables.php">'.$this->getLocalizedString("optimize").'</a>
-							<a class="dropdown-item" aria-expanded="false" href="cleanup/deleteAcs.php">'.$this->getLocalizedString("deleteAcs").'</a>
-							<a class="dropdown-item" aria-expanded="false" href="cleanup/deleteUsers.php">'.$this->getLocalizedString("deleteUsers").'</a>
-						</div>
-					</li>';
-			}
-		}else{
-			echo $browse . "</div></li>";
-		}
-		$switchLanglistdir = '../incl/lang';
-		if (strpos($_SERVER[REQUEST_URI], 'home.php') !== false){
-			$switchLanglistdir = 'incl/lang';
-		}
-		
-include "../../config/main.php";
-include "../config/main.php";
-
-//Checking if levelToGD true
-$levelToGDDropdownItem = '<a class="dropdown-item" aria-expanded="false" href="reupload/levelToGD.php">'.$this->getLocalizedString("levelToGD").'</a>';
-if($levelToGD !== "true")
-{$levelToGDDropdownItem = '';}
-
-//Checking if songAdd true
-$songAddDropdownItem = '<a class="dropdown-item" aria-expanded="false" href="reupload/songAdd.php">'.$this->getLocalizedString("songAdd").'</a>';
-if($songAdd !== "true")
-{$songAddDropdownItem = '';}
-
-//Checking if levelReupload true
-$levelReuploadDropdownItem = '<a class="dropdown-item" aria-expanded="false" href="reupload/levelReupload.php">'.$this->getLocalizedString("levelReupload").'</a>';
-if($levelReupload !== "true")
-{$levelReuploadDropdownItem = '';}
-
-//Checking if levelReupload, songAdd, levelToGD is not true
-$reuploadDropdown = '<li class="nav-item dropdown '.$reuploadActive.'">
-						<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<i class="fa fa-upload" aria-hidden="true"></i> '.$this->getLocalizedString("reuploadSection").'
-						</a>
-						<div class="dropdown-menu dropdown-menu-navbar" aria-labelledby="navbarDropdownMenuLink">
-							'.$levelToGDDropdownItem.'
-							'.$songAddDropdownItem.'
-							'.$levelReuploadDropdownItem.'
-						</div>
-					</li>';
-
-if($levelToGD !== "true" AND $songAdd !== "true" AND $levelReupload !== "true")
-{$reuploadDropdown = '';}
-
-		echo '		'.$reuploadDropdown.'
-					<li class="nav-item dropdown '.$statsActive.'">
-						<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<i class="fa fa-bar-chart" aria-hidden="true"></i> '.$this->getLocalizedString("statsSection").'
-						</a>
-						<div class="dropdown-menu dropdown-menu-navbar" aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" aria-expanded="false" href="stats/dailyTable.php">'.$this->getLocalizedString("dailyTable").'</a>
-							<a class="dropdown-item" aria-expanded="false" href="stats/modActions.php">'.$this->getLocalizedString("modActions").'</a>
-							<a class="dropdown-item" aria-expanded="false" href="stats/rateSuggestions.php">'.$this->getLocalizedString("rateSuggestions").'</a>
-							<a class="dropdown-item" aria-expanded="false" href="stats/stats.php">'.$this->getLocalizedString("Main stats").'</a>
-						</div>
-					</li>
-				</ul>
-				<ul class="nav navbar-nav ml-auto">
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<i class="fa fa-language" aria-hidden="true"></i> '.$this->getLocalizedString("language").'
-						</a>
-						<div class="dropdown-menu dropdown-menu-navbar" aria-labelledby="navbarDropdownMenuLink">
-							'.listLang($switchLanglistdir).'
-						</div>';
-		if(isset($_SESSION["accountID"]) && $_SESSION["accountID"]){
-			$userName = $gs->getAccountName($_SESSION["accountID"]);
-			echo'<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<i class="fa fa-user-circle" aria-hidden="true"></i> '.sprintf($this->getLocalizedString("loginHeader"), $userName).'
-						</a>
-						<div class="dropdown-menu dropdown-menu-navbar" aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" aria-expanded="false" href="login/logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i> '.$this->getLocalizedString("logout").'</a>
-						</div>
-					</li>';
-		}else{
-			echo '<li class="nav-item dropdown '.$loginActive.'">
-						<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<i class="fa fa-sign-in" aria-hidden="true"></i> '.$this->getLocalizedString("login").'
-						</a>
-						<div class="dropdown-menu dropdown-menu-right dropdown-menu-navbar" aria-labelledby="navbarDropdownMenuLink" style="padding:17px;">
-									<form action="login/login.php" method="post">
-										<div class="form-group">
-											<input type="text" class="form-control" id="usernameField" name="username" placeholder="Username">
-											<br>
-											<input type="password" class="form-control" id="passwordField" name="password" placeholder="Password">
-										</div>
-										<button type="submit" class="btn btn-primary btn-block">'.$this->getLocalizedString("login").'</button>
-									</form>
-										<a href="account/register.php" class="btn btn-primary btn-block">'.$this->getLocalizedString("register").'</a>
-						</div>';
-		}		
-		echo'	</ul>
-			</div>
-		</nav>';
-	}
 	//Print navbar
 	public function printNavbar($active){
 		require_once __DIR__."/../../incl/lib/mainLib.php";
@@ -355,7 +132,7 @@ if(screen.availHeight > screen.availWidth){alert("'.$this->getLocalizedString("s
 			<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
               <span class="navbar-toggler-icon"></span>
             </button>
-			<div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+			<div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" data-bs-scroll="true" aria-labelledby="offcanvasDarkNavbarLabel">
               <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">'.$this->getLocalizedString("Dashboardof").' '.$GDPSname.'</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -510,6 +287,9 @@ if($levelToGD !== "true" AND $songAdd !== "true" AND $levelReupload !== "true")
 						</div>';
 		}		
 		echo'	</ul>
+		<div class="position-absolute bottom-0 end-0" style="padding: 3%;font-size: unset">
+		    <a target="_blank" href="'.$helpLink.'">Help</a>
+		</div class="position-absolute bottom-0 end-0">
 			</div>
 		</div>
 		</nav>';

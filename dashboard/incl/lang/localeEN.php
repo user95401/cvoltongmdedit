@@ -329,6 +329,9 @@
 		$string["linkAccountError-5"] = "The target account is already linked to an account.";
 		$string["linkAccountError-6"] = "Invalid account ID.";
 		$string["linkAccountError-7"] = "Invalid local username and/or password.";
+	//login
+		$string["loginInvalid"] = "Error in validating username";
+		$string["loginInvalidAccID"] = "Could not get account ID by name";
 /*
 	SUCCESS
 */
@@ -355,6 +358,9 @@
 	//register
 		$string["registered"] = "The account has been registered!";
 		$string["goToLogin"] = "Try login";
+	//login
+		$string["logined"] = "Session created!";
+		$string["loginRedicretInf"] = "Redirecting to the previous page";
 /*
 	YES/NO
 */

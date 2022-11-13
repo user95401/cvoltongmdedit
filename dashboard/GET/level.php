@@ -76,11 +76,27 @@ $songInfo = '<h4>
 	<h6>
 	ID: <a href="GET/song.php?songID='.$song["ID"].'">'.$song["ID"].'</a> '.$dl->getLocalizedString("size").': '.$song["size"].'
 	</h6>';
-if($song["ID"] == 0){
+if($result["audioTrack"] > 0 or $result["songID"] == 0 ){
     $songName = $gs->getAudioTrack($result["audioTrack"]);
     $songInfo = '';
 }
-
+$query = $db->prepare("SELECT * FROM songs WHERE ID = :songid LIMIT 1");
+$query->execute([':songid' => $result["songID"]]);
+if($query->rowCount() == 0) {
+    $ch = curl_init(); 
+	curl_setopt($ch, CURLOPT_URL, "https://www.newgrounds.com/audio/listen/".$result["songID"]); 
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+	$songinfo = curl_exec($ch); 
+	curl_close($ch);
+	$songauthor = explode('","', explode('artist":"', $songinfo)[1])[0];
+    $songName = explode("<title>", explode("</title>", $songinfo)[0])[1];
+    $songInfo = '<h4>
+	By: <a href="https://'.$songauthor.'.newgrounds.com" dir="auto" rel="nofollow" target="_blank">'.$songauthor.'</a>
+	</h4>
+	<h6>
+	ID: <a href="GET/song.php?songID='.$result["songID"].'">'.$result["songID"].'</a> (newgrounds!)
+	</h6>';
+}
 
 	$dl->printPage('
 <div class="container-fluid">
@@ -129,6 +145,7 @@ if($song["ID"] == 0){
 	<br>'.$dl->getLocalizedString("uploaded").''.$dl->convertToDate($result["uploadDate"]).' ago
 	'.$updateDate.'
 	'.$rateDate.'
+	'.$dl->getLocalizedString("objects").': '.$result["objects"].'
 	</h4>
 		</div>
 		<div blank class="col-md-1">

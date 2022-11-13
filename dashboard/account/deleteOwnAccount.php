@@ -8,14 +8,15 @@ require_once "../../incl/lib/generatePass.php";
 $dl = new dashboardLib();
 $gs = new mainLib();
 $generatePass = new generatePass();
+//redicret if not logined
+$urlWas = ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+$urlWas = explode('?', $urlWas); $_SESSION["urlWas"] = $urlWas[0];
+if(!isset($_SESSION["accountID"]) || !$_SESSION["accountID"]) exit(header("Location: ../login/login.php"));
 
 $username = ExploitPatch::remove($_POST["username"]);
 $password = $_POST["password"];
 $accountID = $_SESSION["accountID"];
 
-//Checking if logged in
-session_start();
-if(!isset($_SESSION["accountID"]) || !$_SESSION["accountID"]) exit(header("Location: ../login/login.php"));
 
 //validation check and delete
 if($username != "" AND $password != "" and $generatePass->isValid($accountID, $password)){

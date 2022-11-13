@@ -11,7 +11,7 @@ function listdir($dir){
 	$files = scandir($dir);
 	foreach($files as $file) {
 		if(pathinfo($file, PATHINFO_EXTENSION) == "php" AND $file != "index.php"){
-			$dirstring .= '<a class="dropdown-item" aria-expanded="false" href="tools/'.$file.'">'.str_replace(".php", "", $file).'</a>';
+			$dirstring .= '<a class="dropdown-item" aria-expanded="false" href="account/'.$file.'">'.str_replace(".php", "", $file).'</a>';
 		}
 	}
 	return $dirstring;

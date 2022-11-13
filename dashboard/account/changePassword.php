@@ -1,4 +1,5 @@
 <?php
+if(!isset($_SESSION["accountID"]) || !$_SESSION["accountID"]) exit(header("Location: ../login/login.php"));
 include "../../incl/lib/connection.php";
 include_once "../../config/security.php";
 require "../../incl/lib/generatePass.php";
@@ -11,6 +12,9 @@ $gs = new mainLib();
 use Defuse\Crypto\KeyProtectedByPassword;
 use Defuse\Crypto\Crypto;
 use Defuse\Crypto\Key;
+//redicret if not logined
+$urlWas = ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+$urlWas = explode('?', $urlWas); $_SESSION["urlWas"] = $urlWas[0];
 
 $userName = ExploitPatch::remove($_POST["username"]);
 $oldpass = $_POST["oldPassword"];
@@ -22,9 +26,6 @@ $newPassword = $_POST["newPassword"];
 
 $salt = "";
 
-//Checking if logged in
-session_start();
-if(!isset($_SESSION["accountID"]) || !$_SESSION["accountID"]) exit(header("Location: ../login/login.php"));
 
 if($userName != "" AND $newpass != "" AND $oldpass != ""){
 $pass = GeneratePass::isValidUsrname($userName, $oldpass);

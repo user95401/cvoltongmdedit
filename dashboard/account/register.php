@@ -9,6 +9,10 @@ require_once "../incl/dashboardLib.php";
 $generatePass = new generatePass();
 $dl = new dashboardLib();
 $gs = new mainLib();
+//redicret if not logined
+$urlWas = ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+$urlWas = explode('?', $urlWas); $_SESSION["urlWas"] = $urlWas[0];
+if(!isset($_SESSION["accountID"]) || !$_SESSION["accountID"]) exit(header("Location: ../login/login.php"));
 
 if($_POST["userName"] != "" AND $_POST["password"] != "" AND $_POST["passwordRep"] != ""){
 	//here im getting all the data
