@@ -1,4 +1,3 @@
-<style type="text/css">
 .menubar {
 	background-color: #1e2124!important;
 	color: #d6ddde!important;
@@ -130,4 +129,6 @@ background-color: #212529; padding: 2vh; color: #fff;
     cursor: pointer!important;
     text-decoration: underline!important;
 }
-</style>
+:root {
+    color-scheme: dark;
+}
