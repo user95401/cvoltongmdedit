@@ -28,7 +28,6 @@ class dashboardLib{
 			include "../incl/cvolton.css";
 		}
 		include "../config/main.php";
-		include "incl/cvolton.css";
 		if(!empty($_GET["songID"]) or !empty($_GET["userID"]) or !empty($_GET["levelID"])) $idlblfortitle = 'by ID: ';
 		echo '<!-- DASHBOARD CREATORS: Cvolton, user666, donalex1 -->
 		<title>'.$this->getLocalizedString("Dashboard").' - '.basename($_SERVER["SCRIPT_FILENAME"], '.php').' '.$idlblfortitle.$_GET["songID"].$_GET["userID"].$_GET["levelID"].'</title>
