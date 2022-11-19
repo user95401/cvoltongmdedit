@@ -25,7 +25,13 @@ class dashboardLib{
 		if($isSubdirectory){
 			echo '<base href="../">';
 			include "../../config/main.php";
-			include "../incl/cvolton.css";
+		    echo '<style>';
+		    include "../incl/cvolton.css";
+		    echo '</style>';
+		}else{
+		    echo '<style>';
+		    include "incl/cvolton.css";
+		    echo '</style>';
 		}
 		include "../config/main.php";
 		if(!empty($_GET["songID"]) or !empty($_GET["userID"]) or !empty($_GET["levelID"])) $idlblfortitle = 'by ID: ';
