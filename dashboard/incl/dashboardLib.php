@@ -384,26 +384,10 @@ if($levelToGD !== "true" AND $songAdd !== "true" AND $levelReupload !== "true")
 	public function generateBottomRow($pagecount, $actualpage){
 		$pageminus = $actualpage - 1;
 		$pageplus = $actualpage + 1;
-		$bottomrow = '<div>'.sprintf($this->getLocalizedString("pageInfo"),$actualpage,$pagecount).'</div><div class="btn-group btn-group-sm" style="margin-left:auto; margin-right:0; overflow: auto;">';
+		$bottomrow = '<div>'.sprintf($this->getLocalizedString("pageInfo"),$actualpage,$pagecount).'</div><div class="btn-group btn-group-sm" style="margin-left:auto; margin-right:0; overflow: visible;">';
 		$bottomrow .= '<a id="first" href="'.strtok($_SERVER["REQUEST_URI"],'?').'?page=1&name='.$_GET["name"].'&type='.$_GET["type"].'&order='.$_GET["order"].'" class="btn btn-outline-secondary"><i class="fa fa-backward" aria-hidden="true"></i> '.$this->getLocalizedString("first").'</a><a id="prev" href="'.strtok($_SERVER["REQUEST_URI"],'?').'?page='. $pageminus .'&name='.$_GET["name"].'&type='.$_GET["type"].'&order='.$_GET["order"].'" class="btn btn-outline-secondary"><i class="fa fa-chevron-left" aria-hidden="true"></i> '.$this->getLocalizedString("previous").'</a>';
 		//updated to ".."
-		$bottomrow .= '<a class="btn btn-outline-secondary" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">..</a>
-			<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="padding:17px;">
-				<form action="" method="get">
-					<div class="form-group">
-						<input type="number" class="form-control" value="'.$actualpage.'" min="1" max="'.$pagecount.'" name="page" placeholder="#">
-						<input type="hidden" name="name" value="'.$_GET["name"].'">
-						<input type="hidden" name="type" value="'.$_GET["type"].'">
-						<input type="hidden" name="order" value="'.$_GET["order"].'">';
-		foreach($_GET as $key => $param){
-			if($key != "page"){
-				$bottomrow .= '<input type="hidden" name="'.$key.'" value="'.$param.'">';
-			}
-		}
-		$bottomrow .= '</div>
-					<button type="submit" class="btn btn-primary btn-block">'.$this->getLocalizedString("go").'</button>
-				</form>
-			</div>';
+		$bottomrow .= '<a class="btn btn-outline-secondary" id="navbarDropdownMenuLink" data-bs-toggle="modal" data-bs-target="#sel_page_modal">..</a>';
 		$bottomrow .= '<a href="'.strtok($_SERVER["REQUEST_URI"],'?').'?page='.$pageplus.'&name='.$_GET["name"].'&type='.$_GET["type"].'&order='.$_GET["order"].'" id="next" class="btn btn-outline-secondary">'.$this->getLocalizedString("next").' <i class="fa fa-chevron-right" aria-hidden="true"></i></a><a id="last" href="'.strtok($_SERVER["REQUEST_URI"],'?').'?page='. $pagecount .'&name='.$_GET["name"].'&type='.$_GET["type"].'&order='.$_GET["order"].'" class="btn btn-outline-secondary">'.$this->getLocalizedString("last").' <i class="fa fa-forward" aria-hidden="true"></i></a>';
 		$bottomrow .= "</div><script>
 			function disableElement(element){
@@ -422,6 +406,36 @@ if($levelToGD !== "true" AND $songAdd !== "true" AND $levelReupload !== "true")
 				disableElement(document.getElementById('next'));
 			}
 			</script>";
+echo '<div class="modal fade" id="sel_page_modal" tabindex="-1" aria-labelledby="sel_page_modal" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+      <form action="" method="get">
+	  <div class="form-group">
+		<input type="hidden" name="name" value="'.$_GET["name"].'">
+		<input type="hidden" name="type" value="'.$_GET["type"].'">
+		<input type="hidden" name="order" value="'.$_GET["order"].'">';
+		foreach($_GET as $key => $param){
+			if($key != "page"){
+				echo '<input type="hidden" name="'.$key.'" value="'.$param.'">';
+			}
+		}
+		echo '</div>
+		        <div class="row">
+            		<div class="col-md-9">
+		            <input type="number" class="form-control" value="'.$actualpage.'" min="1" max="'.$pagecount.'" name="page" placeholder="#">
+            		</div>
+		            <br>
+		            <br>
+            		<div class="col-md-3">
+					<button type="submit" class="btn btn-primary btn-block">'.$this->getLocalizedString("go").'</button>
+            		</div>
+            	</div>
+				</form>
+			</div>
+        </div>
+    </div>
+    </div>';
 		return $bottomrow;
 	}
 	//Generate line chart
