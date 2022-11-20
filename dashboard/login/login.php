@@ -24,12 +24,17 @@ if(isset($_POST["username"]) && isset($_POST["password"])){
 	if(!$gp->isValidUsrname($username, $password)) $loginerror .= $dl->getLocalizedString("loginInvalid");
 	//Getting account info
 	$accountID = $gs->getAccountIDFromName($username);
-	if(!$accountID) $loginerror .= $dl->getLocalizedString("loginInvalidAccID");
+	if(!$accountID) $loginerror .= '<br>'.$dl->getLocalizedString("loginInvalidAccID");
 	if($accountID and $gp->isValidUsrname($username, $password)){
 	    //Setting data
 	    $_SESSION["accountID"] = $accountID;
 	    //redicret
-        header("Location: $urlWas");
+        if($urlWas == "http://cvoltongmdedit.webq2e.ru/f/dashboard/login/login.php" or $urlWas == "" or empty($urlWas)) {
+            header("Location: ../home.php");
+        }
+        else{
+            header("Location: $urlWas");
+        }
 	}
 	if(!$accountID and !$gp->isValidUsrname($username, $password)){
 	//Printing page
