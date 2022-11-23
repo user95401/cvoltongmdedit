@@ -21,7 +21,7 @@ $deleteRatedLevels = "true"; //set true to allow level owners to delete them any
 $autoWeeklyAndDaily = "true"; //randomly automatically adds Weekly and Daily levels when the moderator rate it
 $autoWeeklyAndDailyChance = 20; // ^
 $redirectTopArtist = "true"; //Indicates wether the server should ask the main GD servers for the top artists list or not.
-$commandPrefix = "!";
+$commandsPrefix = "!";
 
 //cron
 $ABstars = 190; //default value (for autoban counting)
