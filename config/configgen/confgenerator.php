@@ -42,6 +42,7 @@ $deleteRatedLevels = "'.$_POST["deleteRatedLevels"].'"; //set true to allow leve
 $autoWeeklyAndDaily = "'.$_POST["autoWeeklyAndDaily"].'"; //randomly automatically adds Weekly and Daily levels when the moderator rate it
 $autoWeeklyAndDailyChance = '.$_POST["autoWeeklyAndDailyChance"].'; // ^
 $redirectTopArtist = "'.$_POST["redirectTopArtist"].'"; //Indicates wether the server should ask the main GD servers for the top artists list or not.
+$commandsPrefix = "!";
 
 //cron
 $ABstars = '.$_POST["ABstars"].'; //default value (for autoban counting)
@@ -159,6 +160,11 @@ $admenpassword = "'.$_POST["admenpassword"].'";';
 					<div class="input-group mb-3" data-bs-toggle="tooltip" data-bs-title="Indicates wether the server should ask the main GD servers for the top artists list or not." data-bs-placement="bottom">
 					<label class="input-group-text" >redirectTopArtist: </label>
                     <input required class="form-control" type="text" pattern="true|false" name="redirectTopArtist" value="'.$redirectTopArtist.'">
+                    </div>
+		    <div class="input-group mb-3" data-bs-toggle="tooltip" data-bs-title="Custom prefix for in-game commands" data-bs-placement="bottom">
+					<label class="input-group-text">commandsPrefix: </label>
+                    <input required class="form-control" type="text" pattern="true|false" name="autoWeeklyAndDaily" value="'.$commandsPrefix.'">
+                    <input required class="form-control" type="number" data-bs-toggle="tooltip" data-bs-title="Chance 1-100" min=1 max=100 data-bs-placement="bottom" name="autoWeeklyAndDailyChance" value="'.$autoWeeklyAndDailyChance.'">
                     </div>
 				</div>
 				<div class="col-md-4">
