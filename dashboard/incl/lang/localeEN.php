@@ -70,6 +70,7 @@
 		$string["packAdd"] = "Create a map pack";
 		$string["reports"] = "Reports";
 		$string["accounts"] = "Accounts";
+		$string["manageMods"] = "Manage assigns";
 	//cleanup
 		$string["cleanup"] = "Cleanup";
 		$string["deleteAcs"] = "deleteAcs";

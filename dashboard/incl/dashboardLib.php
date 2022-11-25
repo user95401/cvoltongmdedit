@@ -188,6 +188,7 @@ if(screen.availHeight > screen.availWidth){alert("'.$this->getLocalizedString("s
 							<a class="dropdown-item" aria-expanded="false" href="tools/mapPackAdd.php">'.$this->getLocalizedString("packManage").'</a>
 							<a class="dropdown-item" aria-expanded="false" href="tools/addQuests.php">'.$this->getLocalizedString("Add quest").'</a>
 							<a class="dropdown-item" aria-expanded="false" href="tools/rate.php">'.$this->getLocalizedString("rate").'</a>
+							<a class="dropdown-item" aria-expanded="false" href="tools/manageMods.php">'.$this->getLocalizedString("manageMods").'</a>
 						</div>
 					</li>';
 				echo '<li class="nav-item dropdown '.$cronActive.'">

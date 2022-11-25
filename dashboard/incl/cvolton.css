@@ -129,6 +129,5 @@ background-color: #212529; padding: 2vh; color: #fff;
     cursor: pointer!important;
     text-decoration: underline!important;
 }
-:root {
-    color-scheme: dark;
-}
+:root {color-scheme: dark;}
+.card {color-scheme: light;}
