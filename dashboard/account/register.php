@@ -9,7 +9,6 @@ require_once "../incl/dashboardLib.php";
 $generatePass = new generatePass();
 $dl = new dashboardLib();
 $gs = new mainLib();
-
 if($_POST["userName"] != "" AND $_POST["password"] != "" AND $_POST["passwordRep"] != ""){
 	//here im getting all the data
 	$userName = ExploitPatch::remove($_POST["userName"]);

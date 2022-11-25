@@ -426,9 +426,15 @@
 	$string["subject"] = "Subject";
 	$string["message"] = "Message";
 	$string["sned"] = "Send";
-	$string["addMoreBasdTN"] = "Addmore";
-	$string["addMoreBasdTN"] = "Addmore";
-	
+	//mod management
+	$string["assignID"] = "Assign ID";
+	$string["roleID"] = "Role ID";
+	$string["accountID"] = "Account ID";
+	$string["action"] = "Action";
+	$string["change"] = "Change";
+	$string["deleteAssign"] = "Delete assign";
+	$string["accountIDdeleteAssigns"] = "Or assigns with Account ID";
+	$string["createAssign"] = "Create assign";
 /*
 	CRON
 */
