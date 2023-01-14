@@ -11,6 +11,11 @@ require_once "../incl/lib/exploitPatch.php";
 
 if($preventAddingNewData == 'true') {exit ('<div '.$styleForErrorAlert.'>Adding new data disabled by the administrator!</div>');}
 
+//data folder fix...
+if(!is_dir("../../data")) {mkdir("../../data", 0777, true);} // data/accounts
+if(!is_dir("../../data/levels")) {mkdir("../../data/levels", 0777, true);} // data/levels
+if(!is_dir("../../data/accounts")) {mkdir("../../data/accounts", 0777, true);} // data/accounts
+if(!is_dir("../../data/accounts/keys")) {mkdir("../../data/accounts/keys", 0777, true);} // data/accounts/keys
 
 /*include_once "../incl/lib/defuse-crypto.phar";
 use Defuse\Crypto\KeyProtectedByPassword;
