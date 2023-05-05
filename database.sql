@@ -94,7 +94,7 @@ CREATE TABLE `actions_downloads` (
   `id` int(11) NOT NULL,
   `levelID` int(11) NOT NULL,
   `ip` varbinary(16) NOT NULL,
-  `uploadDate` datetime NOT NULL DEFAULT current_timestamp()
+  `uploadDate` timestamp DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
@@ -109,7 +109,7 @@ CREATE TABLE `actions_likes` (
   `type` int(11) NOT NULL,
   `isLike` tinyint(4) NOT NULL,
   `ip` varbinary(16) NOT NULL,
-  `uploadDate` datetime NOT NULL DEFAULT current_timestamp()
+  `uploadDate` timestamp DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1057,3 +1057,17 @@ COMMIT;
 
 ALTER TABLE `roles`  ADD `commandDeleteAll` INT NOT NULL DEFAULT '0'  AFTER `commandDelete`;
 ALTER TABLE `roles`  ADD `commandDeleteOwn` INT NOT NULL DEFAULT '1'  AFTER `commandDelete`;
+
+--
+-- Дамп данных таблицы `quests`
+--
+INSERT INTO `quests` (`ID`, `type`, `amount`, `reward`, `name`) VALUES
+(11, 1, 200, 5, 'Orbs Finder'),
+(12, 1, 500, 10, 'Orbs Collector'),
+(13, 1, 1000, 15, 'Orbs Master'),
+(14, 3, 5, 5, 'Stars Finder'),
+(15, 3, 10, 10, 'Stars Collector'),
+(16, 3, 15, 15, 'Stars Master'),
+(17, 2, 2, 5, 'Coin Finder'),
+(18, 2, 4, 10, 'Coin Collector'),
+(19, 2, 6, 15, 'Coin Master');
