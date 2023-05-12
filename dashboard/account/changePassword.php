@@ -1,5 +1,4 @@
 <?php
-if(!isset($_SESSION["accountID"]) || !$_SESSION["accountID"]) exit(header("Location: ../login/login.php"));
 include "../../incl/lib/connection.php";
 include_once "../../config/security.php";
 require "../../incl/lib/generatePass.php";
@@ -13,6 +12,7 @@ use Defuse\Crypto\KeyProtectedByPassword;
 use Defuse\Crypto\Crypto;
 use Defuse\Crypto\Key;
 //redicret if not logined
+if(!isset($_SESSION["accountID"]) || !$_SESSION["accountID"]) exit(header("Location: ../login/login.php"));
 $urlWas = ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 $urlWas = explode('?', $urlWas); $_SESSION["urlWas"] = $urlWas[0];
 
